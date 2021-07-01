@@ -3,9 +3,15 @@
 
 #include <iostream>
 
+int addition(int a, int b)
+{
+    int sum;
+    sum = a + b;
+    return sum;
+}
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout << "Hello World!\n" << addition(2,3);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
