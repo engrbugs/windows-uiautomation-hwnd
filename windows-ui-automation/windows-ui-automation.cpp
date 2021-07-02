@@ -8,6 +8,16 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
+enum SPOTIFY
+{
+	SPOTIFY_MUTE = 524288,
+	SPOTIFY_VOLUMEDOWN = 589824,
+	SPOTIFY_VOLUMEUP = 655360,
+	SPOTIFY_NEXT = 720896,
+	SPOTIFY_PREV = 786432,
+	SPOTIFY_STOP = 851968,
+	SPOTIFY_PLAYPAUSE = 917504
+};
 
 typedef struct EnumHWndsArg
 {
@@ -93,9 +103,17 @@ void GetHWndsByProcessID(DWORD processID, std::vector<HWND>& vecHWnds)
 	wi.vecHWnds = &vecHWnds;
 	EnumWindows(lpEnumFunc, (LPARAM)&wi);
 }
-
+void pause_spotify()
+{
+	long int HHWW;
+	HHWW = 264082;
+	printf("%d --->This Wnd\n", HHWW);
+	SetFocus((HWND)HHWW);
+	SendMessage((HWND)657322, WM_APPCOMMAND, 0, SPOTIFY_PLAYPAUSE);
+}
 int32_t main()
 {
+	long int HHWW;
 	DWORD pid = GetProcessIDByName(L"spotify.exe");
 	printf("pid = %u end\n", pid);
 	char strPid[15];
@@ -120,6 +138,7 @@ int32_t main()
 
 			if (parent == NULL)
 			{
+				HHWW = (long)h;
 				printf("%d --->Main Wnd\n", h);
 			}
 			else
@@ -131,6 +150,6 @@ int32_t main()
 	char szPid[15] = "";
 	ReadF(fileName, szPid);
 	printf("[ReadF] szPid:%s\n", szPid);
-	getchar();
-	return S_OK;
+	// pause_spotify();
+
 }
