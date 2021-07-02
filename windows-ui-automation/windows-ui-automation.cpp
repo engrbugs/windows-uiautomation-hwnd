@@ -12,7 +12,7 @@ typedef struct EnumHWndsArg
 {
 	std::vector<HWND>* vecHWnds;
 	DWORD dwProcessId;
-}EnumHWndsArg, * LPEnumHWndsArg;
+} EnumHWndsArg, * LPEnumHWndsArg;
 
 void ReadF(char* str, char* buffer)
 {
@@ -20,7 +20,7 @@ void ReadF(char* str, char* buffer)
 	pfile = ::CreateFile(LPCWSTR(str), GENERIC_READ, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (pfile == INVALID_HANDLE_VALUE)
 	{
-		std::cout << "Failed to open file" << endl;;
+		wcout << "Failed to open file" << endl;;
 		CloseHandle(pfile); // Be sure to release the handle before the function exits
 		return;
 	}
@@ -39,7 +39,7 @@ void WriteF(char* str, const char* buffer, int size)
 		NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_HIDDEN | FILE_FLAG_WRITE_THROUGH, NULL);
 	if (pfile == INVALID_HANDLE_VALUE)
 	{
-		std::cout << "Failed to open file" << endl;;
+		wcout << "Failed to open file" << endl;;
 		CloseHandle(pfile); // Be sure to release the handle before the function exits
 		return;
 	}
@@ -66,7 +66,7 @@ DWORD GetProcessIDByName(const wchar_t* pName)
 			CloseHandle(hSnapshot);
 			return pe.th32ProcessID;
 		}
-		//printf("%-6d %s\n", pe.th32ProcessID, pe.szExeFile);
+		printf("%-6d %s\n", pe.th32ProcessID, pe.szExeFile);
 	}
 	CloseHandle(hSnapshot);
 	return 0;
@@ -80,7 +80,7 @@ BOOL CALLBACK lpEnumFunc(HWND hwnd, LPARAM lParam)
 	if (processId == pArg->dwProcessId)
 	{
 		pArg->vecHWnds->push_back(hwnd);
-		//printf("%p\n", hwnd);
+		printf("%p\n", hwnd);
 	}
 	return TRUE;
 }
@@ -126,7 +126,7 @@ int32_t main()
 			}
 		}
 	}
-	char szPid[5] = "";
+	char szPid[15] = "";
 	ReadF(fileName, szPid);
 	printf("[ReadF] szPid:%s\n", szPid);
 	getchar();
