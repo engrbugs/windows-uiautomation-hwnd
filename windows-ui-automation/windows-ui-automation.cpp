@@ -96,7 +96,7 @@ void GetHWndsByProcessID(DWORD processID, std::vector<HWND>& vecHWnds)
 
 int32_t main()
 {
-	DWORD pid = GetProcessIDByName(L"notepad.exe");
+	DWORD pid = GetProcessIDByName(L"spotify.exe");
 	printf("pid = %u end\n", pid);
 	char strPid[15];
 	sprintf_s(strPid, 15, "%u", pid);
@@ -120,7 +120,7 @@ int32_t main()
 
 			if (parent == NULL)
 			{
-				printf("%p --->Main Wnd\n", h);
+				printf("%d --->Main Wnd\n", h);
 			}
 			else
 			{
