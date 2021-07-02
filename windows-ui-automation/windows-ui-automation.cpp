@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 typedef struct EnumHWndsArg
@@ -113,9 +114,10 @@ int32_t main()
 		std::vector<HWND> vecHWnds;
 		GetHWndsByProcessID(pid, vecHWnds);
 		printf("vecHWnds.size() = %u\n", vecHWnds.size());
-		for (const HWND& h : vecHWnds)
+		for (const HWND &h : vecHWnds)
 		{
 			HWND parent = GetParent(h);
+
 			if (parent == NULL)
 			{
 				printf("%p --->Main Wnd\n", h);
