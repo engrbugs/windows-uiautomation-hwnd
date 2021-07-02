@@ -107,10 +107,12 @@ void pause_spotify()
 {
 	long int HHWW;
 	HHWW = 264082;
+
 	printf("%d --->This Wnd\n", HHWW);
 	SetFocus((HWND)HHWW);
-	SendMessage((HWND)657322, WM_APPCOMMAND, 0, SPOTIFY_PLAYPAUSE);
+	SendMessage((HWND)659436, WM_APPCOMMAND, 0, SPOTIFY_PLAYPAUSE);
 }
+
 int32_t main()
 {
 	long int HHWW;
@@ -150,6 +152,23 @@ int32_t main()
 	char szPid[15] = "";
 	ReadF(fileName, szPid);
 	printf("[ReadF] szPid:%s\n", szPid);
-	// pause_spotify();
+	//pause_spotify();
+	HHWW = 0x000A02BC;
+	printf("%d --->This Wnd\n", HHWW);
+	//SetFocus((HWND)HHWW);
+	DWORD_PTR dwResult;
 
+
+	// SendMessage((HWND)HHWW, WM_APPCOMMAND, 0, SPOTIFY_PLAYPAUSE);
+	
+
+
+	HWND editWnd = FindWindowEx((HWND)HHWW, NULL, L"Edit", L"");
+	printf("%d --->editwnd\n", HHWW);
+	int textLength = SendMessage(editWnd, WM_GETTEXTLENGTH, 0, 0) + 1;
+	wcout << textLength << endl;
+	TCHAR text[256];
+	SendMessage(editWnd, WM_GETTEXT, sizeof(text), (LPARAM)text);
+	wcout << text << endl;
+	//printf("%s\n", str);
 }
